@@ -14,7 +14,7 @@ test.describe('@desktop Password boundary validation', () => {
     test(
         'User can submit form with password length 8 (minimum length)',
         { tag: ['@regression', '@registration'] },
-        async ({ registrationPage, page, dataFactory }) => {
+        async ({ registrationPage, loginPage, page, dataFactory }) => {
             // Prepare test data
             const user: User = dataFactory.createValidUserData();
 
@@ -23,7 +23,7 @@ test.describe('@desktop Password boundary validation', () => {
 
             await registrationPage.registrationForm.submitForm();
 
-            await expect(page).toHaveURL(new RegExp('/login'), {
+            await expect(page).toHaveURL(new RegExp(loginPage.path), {
                 timeout: 10000
             });
         }
@@ -32,7 +32,7 @@ test.describe('@desktop Password boundary validation', () => {
     test(
         'User can submit form with password length 9 (1 above min)',
         { tag: ['@regression', '@registration'] },
-        async ({ registrationPage, page, dataFactory }) => {
+        async ({ registrationPage,loginPage, page, dataFactory }) => {
             const user: User = dataFactory.createValidUserData(); // Prepare test data
 
             user.password = user.password + 'a'; // Modify password to have 9 characters
@@ -42,7 +42,7 @@ test.describe('@desktop Password boundary validation', () => {
 
             await registrationPage.registrationForm.submitForm();
 
-            await expect(page).toHaveURL(new RegExp('/login'), {
+            await expect(page).toHaveURL(new RegExp(loginPage.path), {
                 timeout: 10000
             });
         }
@@ -77,7 +77,7 @@ test.describe(
     '@desktop Password complexity validation',
     { tag: ['@regression', '@registration'] },
     () => {
-        test.beforeEach(async ({ registrationPage, page }) => {
+        test.beforeEach(async ({ registrationPage,loginPage, page }) => {
             // Open Registration page
             await registrationPage.open();
 
