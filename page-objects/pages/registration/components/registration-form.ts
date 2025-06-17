@@ -27,14 +27,12 @@ export default class RegistrationForm {
 
     constructor(page: Page) {
         this.page = page;
-        this.goToLoginButton = this.page.locator('button', { hasText: 'Login' });
+        this.goToLoginButton = this.page.locator('mat-card button', { hasText: 'Login' });
         this.firstNameField = this.page.locator('[placeholder="First name"]');
         this.lastNameField = this.page.locator('[placeholder="Last Name"]');
         this.usernameField = this.page.locator('[placeholder="User name"]');
         this.passwordField = this.page.locator('[placeholder="Password"]');
-        this.confirmPasswordField = this.page.locator(
-            '[placeholder="Confirm Password"]'
-        );
+        this.confirmPasswordField = this.page.locator('[placeholder="Confirm Password"]');
         this.genderRadio = (gender) => this.page.getByLabel(gender).nth(0);
         this.submitButton = this.page.locator('button', { hasText: 'Register' });
         this.passwordStrengthError = this.page.locator('mat-error', {
