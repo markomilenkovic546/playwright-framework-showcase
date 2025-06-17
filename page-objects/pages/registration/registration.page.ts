@@ -4,7 +4,7 @@ import RegistrationForm from './components/registration-form';
 import { BasePage } from '../base.page';
 
 export default class RegistrationPage extends BasePage {
-    readonly path: string = '/register'
+    readonly path: string = '/register';
     readonly navbar: NavBar;
     readonly registrationForm: RegistrationForm;
 

@@ -4,7 +4,6 @@ import ProductListingPage from './pages/plp/product-listing.page';
 import LoginPage from './pages/login/login.page';
 import DataFactory from 'helpers/data-factory';
 
-
 export type TestFixtures = {
     registrationPage: RegistrationPage;
     productListingPage: ProductListingPage;
@@ -18,15 +17,15 @@ export const test = base.extend<TestFixtures>({
         await use(registrationPage);
     },
 
-    dataFactory: async ({},use) => {
+    dataFactory: async ({}, use) => {
         const dataFactory = new DataFactory();
         await use(dataFactory);
     },
-    productListingPage: async ({ page },use) => {
+    productListingPage: async ({ page }, use) => {
         const productListingPage = new ProductListingPage(page);
         await use(productListingPage);
     },
-    loginPage: async ({ page },use) => {
+    loginPage: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
         await use(loginPage);
     }

@@ -13,10 +13,7 @@ export default class ProductCard {
         this.page = page;
 
         this.productDetailsLink = (productName: string): Locator => {
-            return this.page
-                .locator('.card-title.my-2', { hasText: productName })
-                .locator('..')
-                .locator('..');
+            return this.page.locator('.card-title.my-2', { hasText: productName }).locator('..').locator('..');
         };
 
         this.productTitles = this.page.locator('.card-title.my-2');
@@ -44,10 +41,7 @@ export default class ProductCard {
         };
 
         this.productPrice = (productName: string): Locator => {
-            return this.page
-                .locator('.card-title.my-2', { hasText: productName })
-                .locator('..')
-                .locator('p');
+            return this.page.locator('.card-title.my-2', { hasText: productName }).locator('..').locator('p');
         };
     }
 

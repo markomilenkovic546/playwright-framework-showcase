@@ -29,9 +29,7 @@ test.describe('@desktop Registration flow', () => {
 
             await loginPage.login(user.username!, user.password!);
 
-            await expect(loginPage.navbar.accountDropdownButton).toContainText(
-                user.username!
-            );
+            await expect(loginPage.navbar.accountDropdownButton).toContainText(user.username!);
         }
     );
 });
@@ -64,9 +62,7 @@ test.describe('@mobile Registration flow', () => {
 
             await loginPage.login(user.username!, user.password!);
 
-            await expect(loginPage.navbar.accountDropdownButton).toContainText(
-                user.username!
-            );
+            await expect(loginPage.navbar.accountDropdownButton).toContainText(user.username!);
         }
     );
 });
@@ -99,9 +95,7 @@ test.describe('@tablet Registration flow', () => {
 
             await loginPage.login(user.username!, user.password!);
 
-            await expect(loginPage.navbar.accountDropdownButton).toContainText(
-                user.username!
-            );
+            await expect(loginPage.navbar.accountDropdownButton).toContainText(user.username!);
         }
     );
 });

@@ -32,7 +32,7 @@ test.describe('@desktop Password boundary validation', () => {
     test(
         'User can submit form with password length 9 (1 above min)',
         { tag: ['@regression', '@registration'] },
-        async ({ registrationPage,loginPage, page, dataFactory }) => {
+        async ({ registrationPage, loginPage, page, dataFactory }) => {
             const user: User = dataFactory.createValidUserData(); // Prepare test data
 
             user.password = user.password + 'a'; // Modify password to have 9 characters
@@ -66,35 +66,51 @@ test.describe('@desktop Password boundary validation', () => {
                 timeout: 10000
             });
 
-            await expect(
-                registrationPage.registrationForm.passwordStrengthError
-            ).toBeVisible();
+            await expect(registrationPage.registrationForm.passwordStrengthError).toBeVisible();
         }
     );
 });
 
-test.describe(
-    '@desktop Password complexity validation',
-    { tag: ['@regression', '@registration'] },
-    () => {
-        test.beforeEach(async ({ registrationPage,loginPage, page }) => {
-            // Open Registration page
-            await registrationPage.open();
+test.describe('@desktop Password complexity validation', { tag: ['@regression', '@registration'] }, () => {
+    test.beforeEach(async ({ registrationPage, loginPage, page }) => {
+        // Open Registration page
+        await registrationPage.open();
 
-            await expect(page).toHaveURL(new RegExp(registrationPage.path), {
-                timeout: 10000
-            });
+        await expect(page).toHaveURL(new RegExp(registrationPage.path), {
+            timeout: 10000
+        });
+    });
+
+    test('User cannot submit form if password does not contain at least 1 uppercase letter', async ({
+        registrationPage,
+        page,
+        dataFactory
+    }) => {
+        // Prepare test data
+        const user: User = dataFactory.createValidUserData();
+        // Modify password to not contain uppercase letters
+        user.password = 'pa5sword';
+
+        /** STEPS **/
+        await registrationPage.registrationForm.fillForm(user);
+
+        await registrationPage.registrationForm.submitForm();
+
+        await expect(page).toHaveURL(new RegExp(registrationPage.path), {
+            timeout: 10000
         });
 
-        test('User cannot submit form if password does not contain at least 1 uppercase letter', async ({
-            registrationPage,
-            page,
-            dataFactory
-        }) => {
+        await expect(registrationPage.registrationForm.passwordStrengthError).toBeVisible();
+    });
+
+    test(
+        'User cannot submit form if password does not contain at least 1 lowercase letter',
+        { tag: ['@regression', '@registration'] },
+        async ({ registrationPage, page, dataFactory }) => {
             // Prepare test data
             const user: User = dataFactory.createValidUserData();
-            // Modify password to not contain uppercase letters
-            user.password = 'pa5sword';
+            // Modify password to not contain lowercase letters
+            user.password = 'JSUDHSG5';
 
             /** STEPS **/
             await registrationPage.registrationForm.fillForm(user);
@@ -105,60 +121,32 @@ test.describe(
                 timeout: 10000
             });
 
-            await expect(
-                registrationPage.registrationForm.passwordStrengthError
-            ).toBeVisible();
-        });
+            await expect(registrationPage.registrationForm.passwordStrengthError).toBeVisible();
+        }
+    );
 
-        test(
-            'User cannot submit form if password does not contain at least 1 lowercase letter',
-            { tag: ['@regression', '@registration'] },
-            async ({ registrationPage, page, dataFactory }) => {
-                // Prepare test data
-                const user: User = dataFactory.createValidUserData();
-                // Modify password to not contain lowercase letters
-                user.password = 'JSUDHSG5';
+    test(
+        'User cannot submit form if password does not contain at least 1 digit',
+        { tag: ['@regression', '@registration'] },
+        async ({ registrationPage, page, dataFactory }) => {
+            // Prepare test data
+            const user: User = dataFactory.createValidUserData();
+            // Modify password to not contain numbers
+            user.password = 'juehgPdqs';
 
-                /** STEPS **/
-                await registrationPage.registrationForm.fillForm(user);
+            /** STEPS **/
+            await registrationPage.registrationForm.fillForm(user);
 
-                await registrationPage.registrationForm.submitForm();
+            await registrationPage.registrationForm.submitForm();
 
-                await expect(page).toHaveURL(new RegExp(registrationPage.path), {
-                    timeout: 10000
-                });
+            await expect(page).toHaveURL(new RegExp(registrationPage.path), {
+                timeout: 10000
+            });
 
-                await expect(
-                    registrationPage.registrationForm.passwordStrengthError
-                ).toBeVisible();
-            }
-        );
-
-        test(
-            'User cannot submit form if password does not contain at least 1 digit',
-            { tag: ['@regression', '@registration'] },
-            async ({ registrationPage, page, dataFactory }) => {
-                // Prepare test data
-                const user: User = dataFactory.createValidUserData();
-                // Modify password to not contain numbers
-                user.password = 'juehgPdqs';
-
-                /** STEPS **/
-                await registrationPage.registrationForm.fillForm(user);
-
-                await registrationPage.registrationForm.submitForm();
-
-                await expect(page).toHaveURL(new RegExp(registrationPage.path), {
-                    timeout: 10000
-                });
-
-                await expect(
-                    registrationPage.registrationForm.passwordStrengthError
-                ).toBeVisible();
-            }
-        );
-    }
-);
+            await expect(registrationPage.registrationForm.passwordStrengthError).toBeVisible();
+        }
+    );
+});
 
 test.describe('@desktop Password confirmation validation', () => {
     test.beforeEach(async ({ registrationPage, page }) => {
@@ -180,9 +168,7 @@ test.describe('@desktop Password confirmation validation', () => {
             /** STEPS **/
             await registrationPage.registrationForm.fillForm(user);
 
-            await registrationPage.registrationForm.confirmPassword(
-                user.password + 'a'
-            ); // Change Confirm password input
+            await registrationPage.registrationForm.confirmPassword(user.password + 'a'); // Change Confirm password input
 
             await registrationPage.registrationForm.submitForm();
 
@@ -190,70 +176,56 @@ test.describe('@desktop Password confirmation validation', () => {
                 timeout: 10000
             });
 
-            await expect(
-                registrationPage.registrationForm.passwordMatchError
-            ).toBeVisible();
+            await expect(registrationPage.registrationForm.passwordMatchError).toBeVisible();
         }
     );
 });
 
-test.describe(
-    '@desktop Mandatory input validation',
-    { tag: ['@regression', '@registration'] },
-    () => {
-        test.beforeEach(async ({ registrationPage, page }) => {
-            // Open Registration page
-            await registrationPage.open();
+test.describe('@desktop Mandatory input validation', { tag: ['@regression', '@registration'] }, () => {
+    test.beforeEach(async ({ registrationPage, page }) => {
+        // Open Registration page
+        await registrationPage.open();
 
-            await expect(page).toHaveURL(new RegExp(registrationPage.path), {
-                timeout: 10000
-            });
+        await expect(page).toHaveURL(new RegExp(registrationPage.path), {
+            timeout: 10000
         });
+    });
 
-        test('User cannot submit form if First Name field is empty', async ({
-            registrationPage,
-            page,
-            dataFactory
-        }) => {
+    test('User cannot submit form if First Name field is empty', async ({ registrationPage, page, dataFactory }) => {
+        // Prepare test data
+        const user: User = dataFactory.createValidUserData();
+        delete user.firstName;
+
+        /** STEPS **/
+        await registrationPage.registrationForm.fillForm(user);
+        await registrationPage.registrationForm.submitForm();
+        await expect(page).toHaveURL(new RegExp(registrationPage.path), {
+            timeout: 10000
+        });
+        await expect(registrationPage.registrationForm.firstNameRequiredError).toBeVisible();
+    });
+
+    test(
+        'User cannot submit form if Last Name field is empty',
+        { tag: ['@regression', '@registration'] },
+        async ({ registrationPage, page, dataFactory }) => {
             // Prepare test data
             const user: User = dataFactory.createValidUserData();
-            delete user.firstName;
+            delete user.lastName;
 
             /** STEPS **/
             await registrationPage.registrationForm.fillForm(user);
+
             await registrationPage.registrationForm.submitForm();
+
             await expect(page).toHaveURL(new RegExp(registrationPage.path), {
                 timeout: 10000
             });
-            await expect(
-                registrationPage.registrationForm.firstNameRequiredError
-            ).toBeVisible();
-        });
 
-        test(
-            'User cannot submit form if Last Name field is empty',
-            { tag: ['@regression', '@registration'] },
-            async ({ registrationPage, page, dataFactory }) => {
-                // Prepare test data
-                const user: User = dataFactory.createValidUserData();
-                delete user.lastName;
-
-                /** STEPS **/
-                await registrationPage.registrationForm.fillForm(user);
-
-                await registrationPage.registrationForm.submitForm();
-
-                await expect(page).toHaveURL(new RegExp(registrationPage.path), {
-                    timeout: 10000
-                });
-
-                await expect(
-                    registrationPage.registrationForm.lastNameRequiredError
-                ).toBeVisible();
-            }
-        );
-    }
-);
+            await expect(registrationPage.registrationForm.lastNameRequiredError).toBeVisible();
+        }
+    );
+});
 
 test(
     'User cannot submit form if Username field is empty',
@@ -272,9 +244,7 @@ test(
             timeout: 10000
         });
 
-        await expect(
-            registrationPage.registrationForm.usernameRequiredError
-        ).toBeVisible();
+        await expect(registrationPage.registrationForm.usernameRequiredError).toBeVisible();
     }
 );
 
@@ -295,9 +265,7 @@ test(
             timeout: 10000
         });
 
-        await expect(
-            registrationPage.registrationForm.passwordRequiredError
-        ).toBeVisible();
+        await expect(registrationPage.registrationForm.passwordRequiredError).toBeVisible();
     }
 );
 
@@ -319,8 +287,6 @@ test(
             timeout: 10000
         });
 
-        await expect(
-            registrationPage.registrationForm.confirmPasswordRequiredError
-        ).toBeVisible();
+        await expect(registrationPage.registrationForm.confirmPasswordRequiredError).toBeVisible();
     }
 );

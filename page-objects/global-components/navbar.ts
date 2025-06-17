@@ -24,9 +24,7 @@ export default class NavBar {
         this.cartBadge = page.locator('mat-icon', { hasText: 'shopping_cart' });
         this.cartBadgeCounter = this.cartBadge.locator('#mat-badge-content-0');
         this.loginButton = page.locator('app-nav-bar [mattooltip="Login"]');
-        this.accountDropdownButton = page
-            .locator('mat-icon', { hasText: 'arrow_drop_down' })
-            .locator('..');
+        this.accountDropdownButton = page.locator('mat-icon', { hasText: 'arrow_drop_down' }).locator('..');
         this.swaggerButton = page.locator('a', { hasText: 'Swagger' });
         this.githubButton = page.locator('a', { hasText: 'GitHub' });
 

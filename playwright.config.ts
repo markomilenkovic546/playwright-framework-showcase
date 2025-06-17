@@ -48,7 +48,7 @@ export default defineConfig({
                 video: 'retain-on-failure',
                 trace: 'on'
             },
-            grep: /@smoke/, // Only run tests with the @smoke tag
+            grep: /@smoke/ // Only run tests with the @smoke tag
             //dependencies: ['setup'] // Ensure setup runs first
         },
         {
@@ -58,7 +58,7 @@ export default defineConfig({
                 channel: 'chrome',
                 video: 'retain-on-failure'
             },
-            grep: /@desktop/, // Only run tests with the @desktop tag
+            grep: /@desktop/ // Only run tests with the @desktop tag
             //dependencies: ['setup'] // Ensure setup runs first
         },
         {
@@ -67,7 +67,7 @@ export default defineConfig({
                 ...devices['Desktop Firefox'],
                 video: 'retain-on-failure'
             },
-            grep: /@desktop/,
+            grep: /@desktop/
             //dependencies: ['setup']
         },
         {
@@ -77,7 +77,7 @@ export default defineConfig({
                 channel: 'msedge',
                 video: 'retain-on-failure'
             },
-            grep: /@desktop/,
+            grep: /@desktop/
             //dependencies: ['setup']
         },
         {
@@ -86,7 +86,7 @@ export default defineConfig({
                 ...devices['Pixel 5'],
                 video: 'retain-on-failure'
             },
-            grep: /@mobile/,
+            grep: /@mobile/
             //dependencies: ['setup']
         },
         {
@@ -95,7 +95,7 @@ export default defineConfig({
                 ...devices['Galaxy Tab S4'],
                 video: 'retain-on-failure'
             },
-            grep: /@tablet/,
+            grep: /@tablet/
             //dependencies: ['setup']
         }
     ]

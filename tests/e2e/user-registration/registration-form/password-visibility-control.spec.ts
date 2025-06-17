@@ -24,9 +24,7 @@ test.describe('@desktop Password Visibility Toggle', () => {
 
             registrationPage.registrationForm.enterPassword(user.password!);
 
-            await expect(
-                registrationPage.registrationForm.passwordField
-            ).toHaveAttribute('type', 'password');
+            await expect(registrationPage.registrationForm.passwordField).toHaveAttribute('type', 'password');
         }
     );
 
@@ -38,9 +36,7 @@ test.describe('@desktop Password Visibility Toggle', () => {
 
             registrationPage.registrationForm.confirmPassword(user.password!);
 
-            await expect(
-                registrationPage.registrationForm.confirmPasswordField
-            ).toHaveAttribute('type', 'password');
+            await expect(registrationPage.registrationForm.confirmPasswordField).toHaveAttribute('type', 'password');
         }
     );
 
@@ -54,9 +50,7 @@ test.describe('@desktop Password Visibility Toggle', () => {
 
             registrationPage.registrationForm.showPassword();
 
-            await expect(
-                registrationPage.registrationForm.passwordField
-            ).toHaveAttribute('type', 'text');
+            await expect(registrationPage.registrationForm.passwordField).toHaveAttribute('type', 'text');
         }
     );
 
@@ -70,9 +64,7 @@ test.describe('@desktop Password Visibility Toggle', () => {
 
             registrationPage.registrationForm.showConfirmationPassword();
 
-            await expect(
-                registrationPage.registrationForm.confirmPasswordField
-            ).toHaveAttribute('type', 'text');
+            await expect(registrationPage.registrationForm.confirmPasswordField).toHaveAttribute('type', 'text');
         }
     );
 
@@ -88,9 +80,7 @@ test.describe('@desktop Password Visibility Toggle', () => {
 
             registrationPage.registrationForm.hidePassword();
 
-            await expect(
-                registrationPage.registrationForm.passwordField
-            ).toHaveAttribute('type', 'password');
+            await expect(registrationPage.registrationForm.passwordField).toHaveAttribute('type', 'password');
         }
     );
 
@@ -106,9 +96,7 @@ test.describe('@desktop Password Visibility Toggle', () => {
 
             registrationPage.registrationForm.hideConfirmationPassword();
 
-            await expect(
-                registrationPage.registrationForm.confirmPasswordField
-            ).toHaveAttribute('type', 'password');
+            await expect(registrationPage.registrationForm.confirmPasswordField).toHaveAttribute('type', 'password');
         }
     );
 });
