@@ -5,6 +5,7 @@ import { User } from 'types';
 export default class RegistrationForm {
     readonly page: Page;
     // DOM ELEMENTS
+    readonly goToLoginButton: Locator;
     readonly firstNameField: Locator;
     readonly lastNameField: Locator;
     readonly usernameField: Locator;
@@ -26,6 +27,7 @@ export default class RegistrationForm {
 
     constructor(page: Page) {
         this.page = page;
+        this.goToLoginButton = this.page.locator('button', { hasText: 'Login' });
         this.firstNameField = this.page.locator('[placeholder="First name"]');
         this.lastNameField = this.page.locator('[placeholder="Last Name"]');
         this.usernameField = this.page.locator('[placeholder="User name"]');
@@ -85,6 +87,11 @@ export default class RegistrationForm {
     }
 
     // ACTIONS
+
+    async goToLoginPage(): Promise<void> {
+        await this.goToLoginButton.click();
+    }
+
     async enterFirstName(firstName: string): Promise<void> {
         await this.firstNameField.fill(firstName);
     }
