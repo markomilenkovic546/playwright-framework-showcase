@@ -5,7 +5,7 @@ import FilterPanel from './components/filter-panel';
 import { BasePage } from '../base.page';
 
 export default class ProductListingPage extends BasePage {
-    readonly path: string = '/register';
+    readonly path: string = '/';
     readonly navbar: NavBar;
     readonly productCard: ProductCard;
     readonly filterPanel: FilterPanel;
