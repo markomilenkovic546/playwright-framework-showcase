@@ -2,6 +2,7 @@ import { test as base } from '@playwright/test';
 import RegistrationPage from './pages/registration/registration.page';
 import ProductListingPage from './pages/plp/product-listing.page';
 import LoginPage from './pages/login/login.page';
+import ShoppingCartPage from './pages/cart/shopping-cart.page';
 import DataFactory from 'helpers/data-factory';
 
 export type TestFixtures = {
@@ -9,6 +10,7 @@ export type TestFixtures = {
     productListingPage: ProductListingPage;
     dataFactory: DataFactory;
     loginPage: LoginPage;
+    shoppingCartPage: ShoppingCartPage;
 };
 
 export const test = base.extend<TestFixtures>({
@@ -28,6 +30,11 @@ export const test = base.extend<TestFixtures>({
     loginPage: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
         await use(loginPage);
+    },
+
+    shoppingCartPage: async ({ page }, use) => {
+        const shoppingCartPage = new ShoppingCartPage(page);
+        await use(shoppingCartPage);
     }
 });
 
