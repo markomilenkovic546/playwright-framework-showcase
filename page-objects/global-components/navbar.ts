@@ -21,7 +21,7 @@ export default class NavBar {
         this.searchBar = page.locator('[type="search"]');
         this.wishlistBadge = page.locator('mat-icon', { hasText: 'favorite' });
         this.wishlistBadgeCounter = this.wishlistBadge.locator('#mat-badge-content-1');
-        this.cartBadge = page.locator('mat-icon', { hasText: 'shopping_cart' });
+        this.cartBadge = page.locator('mat-icon.mat-badge', { hasText: 'shopping_cart' });
         this.cartBadgeCounter = this.cartBadge.locator('#mat-badge-content-0');
         this.loginButton = page.locator('app-nav-bar [mattooltip="Login"]');
         this.accountDropdownButton = page.locator('mat-icon', { hasText: 'arrow_drop_down' }).locator('..');
