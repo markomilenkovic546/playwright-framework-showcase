@@ -69,27 +69,27 @@ export default class Cart {
 
     // ACTIONS
 
-    async increaseItemQuantity(productName: string) {
+    async increaseItemQuantity(productName: string): Promise<void> {
         await this.increaseQuantityButton(productName).click();
     }
 
-    async decreaseItemQuantity(productName: string) {
+    async decreaseItemQuantity(productName: string): Promise<void> {
         await this.decreaseQuantityButton(productName).click();
     }
 
-    async removeItemFromCart(productName: string) {
+    async removeItemFromCart(productName: string): Promise<void> {
         await this.removeItemButton(productName).click();
     }
 
-    async continueShopping() {
+    async continueShopping(): Promise<void> {
         await this.continueShoppingButton.click();
     }
 
-    async proceedToCheckout() {
+    async proceedToCheckout(): Promise<void> {
         await this.checkoutButton.click();
     }
 
-    async clearCart() {
+    async clearCart(): Promise<void> {
         await this.clearCartButton.click();
     }
 }
