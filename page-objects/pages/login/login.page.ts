@@ -19,6 +19,7 @@ export default class LoginPage extends BasePage {
     }
 
     async login(username: string, password: string): Promise<void> {
+        await this.open()
         await this.loginForm.enterUsername(username);
         await this.loginForm.enterPassword(password);
         await this.loginForm.submitForm();
