@@ -1,5 +1,5 @@
 import type { Locator, Page } from '@playwright/test';
-import { expect } from '../../../test.fixture';
+import { expect } from '../../../../support/test.fixture';
 import { User } from 'types';
 
 export default class RegistrationForm {

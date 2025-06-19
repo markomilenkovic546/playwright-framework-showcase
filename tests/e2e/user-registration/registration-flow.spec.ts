@@ -1,4 +1,4 @@
-import { test, expect } from '../../../page-objects/test.fixture';
+import { test, expect } from '../../../support/test.fixture';
 import { User } from 'types';
 
 test.describe('@desktop Registration flow', () => {

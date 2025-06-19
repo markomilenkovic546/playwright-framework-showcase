@@ -1,8 +1,8 @@
 import { test as base } from '@playwright/test';
-import RegistrationPage from './pages/registration/registration.page';
-import ProductListingPage from './pages/plp/product-listing.page';
-import LoginPage from './pages/login/login.page';
-import ShoppingCartPage from './pages/cart/shopping-cart.page';
+import RegistrationPage from '../page-objects/pages/registration/registration.page';
+import ProductListingPage from '../page-objects/pages/plp/product-listing.page';
+import LoginPage from '../page-objects/pages/login/login.page';
+import ShoppingCartPage from '../page-objects/pages/cart/shopping-cart.page';
 import DataFactory from 'helpers/data-factory';
 
 export type TestFixtures = {
