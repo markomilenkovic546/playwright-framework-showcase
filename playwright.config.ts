@@ -34,12 +34,11 @@ export default defineConfig({
 
     /* Configure projects for major browsers */
     projects: [
-        /*
-    {
-        name: 'setup',
-        testMatch: /.*\.setup\.ts/ // Runs only the authentication setup file
-    },
-    */
+        {
+            name: 'setup',
+            testMatch: /.*\.setup\.ts/ // Runs only the authentication setup file
+        },
+
         {
             name: 'Smoke Testing',
             use: {
@@ -56,10 +55,12 @@ export default defineConfig({
             use: {
                 ...devices['Desktop Chrome'],
                 channel: 'chrome',
-                video: 'retain-on-failure'
+                video: 'retain-on-failure',
+                storageState: 'playwright/.auth/user.json',
+
             },
-            grep: /@desktop/ // Only run tests with the @desktop tag
-            //dependencies: ['setup'] // Ensure setup runs first
+            grep: /@desktop/, // Only run tests with the @desktop tag
+            dependencies: ['setup'] // Ensure setup runs first
         },
         {
             name: 'Firefox',
