@@ -14,11 +14,11 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 export default defineConfig({
     testDir: './tests',
     /* Run tests in files in parallel */
-    fullyParallel: true,
+    fullyParallel: false,
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!process.env.CI,
     /* Retry on CI only */
-    retries: process.env.CI ? 2 : 0,
+    retries: process.env.CI ? 0 : 0,
     /* Opt out of parallel tests on CI. */
     workers: process.env.CI ? 1 : undefined,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -56,8 +56,7 @@ export default defineConfig({
                 ...devices['Desktop Chrome'],
                 channel: 'chrome',
                 video: 'retain-on-failure',
-                storageState: 'playwright/.auth/user.json',
-
+                storageState: 'playwright/.auth/user.json'
             },
             grep: /@desktop/, // Only run tests with the @desktop tag
             dependencies: ['setup'] // Ensure setup runs first
