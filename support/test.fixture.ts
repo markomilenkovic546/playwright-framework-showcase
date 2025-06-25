@@ -4,6 +4,7 @@ import ProductListingPage from '../page-objects/pages/plp/product-listing.page';
 import LoginPage from '../page-objects/pages/login/login.page';
 import ShoppingCartPage from '../page-objects/pages/cart/shopping-cart.page';
 import DataFactory from 'helpers/data-factory';
+import APIHelper from 'helpers/api-helper';
 
 export type TestFixtures = {
     registrationPage: RegistrationPage;
@@ -11,6 +12,7 @@ export type TestFixtures = {
     dataFactory: DataFactory;
     loginPage: LoginPage;
     shoppingCartPage: ShoppingCartPage;
+    apiHelper: APIHelper;
 };
 
 export const test = base.extend<TestFixtures>({
@@ -22,6 +24,10 @@ export const test = base.extend<TestFixtures>({
     dataFactory: async ({}, use) => {
         const dataFactory = new DataFactory();
         await use(dataFactory);
+    },
+    apiHelper: async ({ request }, use) => {
+        const apiHelper = new APIHelper(request);
+        await use(apiHelper);
     },
     productListingPage: async ({ page }, use) => {
         const productListingPage = new ProductListingPage(page);
@@ -38,4 +44,4 @@ export const test = base.extend<TestFixtures>({
     }
 });
 
-export { expect, Page, Locator, Response } from '@playwright/test';
+export { expect, Page, Locator, Response, Request } from '@playwright/test';
