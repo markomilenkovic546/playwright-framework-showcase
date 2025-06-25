@@ -9,8 +9,9 @@ export default class Cart {
     readonly continueShoppingButton: Locator;
     readonly cartTotal: Locator;
     readonly checkoutButton: Locator;
+    readonly cartItemList: Locator;
 
-    readonly cartRow: (productName: string) => Locator;
+    readonly cartItem: (productName: string) => Locator;
     readonly itemImage: (productName: string) => Locator;
     readonly itemPrice: (productName: string) => Locator;
     readonly itemQuantity: (productName: string) => Locator;
@@ -27,43 +28,46 @@ export default class Cart {
         this.continueShoppingButton = this.page.locator('button', { hasText: 'Continue shopping' });
         this.cartTotal = this.page.locator('mat-card-content td strong').nth(1);
         this.checkoutButton = this.page.locator('button', { hasText: 'CheckOut' });
+        this.cartItemList = this.page.locator('mat-card-content tbody tr')
 
-        this.cartRow = (productName: string): Locator => {
+        this.cartItem = (productName: string) => {
             return this.page.locator('mat-card-content tbody tr').filter({
                 has: this.page.locator('a', { hasText: productName })
             });
         };
 
-        this.itemImage = (productName: string): Locator => {
-            return this.cartRow(productName).locator('img');
+        
+
+        this.itemImage = (productName: string) => {
+            return this.cartItem(productName).locator('img');
         };
 
-        this.itemPrice = (productName: string): Locator => {
-            return this.cartRow(productName).locator('.cdk-column-price.mat-column-price');
+        this.itemPrice = (productName: string) => {
+            return this.cartItem(productName).locator('.cdk-column-price.mat-column-price');
         };
 
-        this.itemQuantity = (productName: string): Locator => {
-            return this.cartRow(productName).locator('.cdk-column-quantity.mat-column-quantity div');
+        this.itemQuantity = (productName: string) => {
+            return this.cartItem(productName).locator('.cdk-column-quantity.mat-column-quantity div').nth(2);
         };
 
-        this.increaseQuantityButton = (productName: string): Locator => {
-            return this.cartRow(productName)
+        this.increaseQuantityButton = (productName: string) => {
+            return this.cartItem(productName)
                 .locator('.cdk-column-quantity.mat-column-quantity mat-icon')
                 .filter({ hasText: 'add_circle' });
         };
 
-        this.decreaseQuantityButton = (productName: string): Locator => {
-            return this.cartRow(productName)
+        this.decreaseQuantityButton = (productName: string) => {
+            return this.cartItem(productName)
                 .locator('.cdk-column-quantity.mat-column-quantity mat-icon')
                 .filter({ hasText: 'remove_circle' });
         };
 
-        this.itemTotalPrice = (productName: string): Locator => {
-            return this.cartRow(productName).locator('.cdk-column-total.mat-column-total');
+        this.itemTotalPrice = (productName: string) => {
+            return this.cartItem(productName).locator('.cdk-column-total.mat-column-total');
         };
 
-        this.removeItemButton = (productName: string): Locator => {
-            return this.cartRow(productName).locator('mat-icon').filter({ hasText: 'delete' });
+        this.removeItemButton = (productName: string)=> {
+            return this.cartItem(productName).locator('mat-icon').filter({ hasText: 'delete' });
         };
     }
 
