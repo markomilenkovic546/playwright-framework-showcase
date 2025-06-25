@@ -20,7 +20,7 @@ export default defineConfig({
     /* Retry on CI only */
     retries: process.env.CI ? 0 : 0,
     /* Opt out of parallel tests on CI. */
-    workers: process.env.CI ? 1 : undefined,
+    workers: process.env.CI ? 1 : 1,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
     reporter: [['html']],
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -41,17 +41,20 @@ export default defineConfig({
 
         {
             name: 'Smoke Testing',
+            workers: 1,
             use: {
                 ...devices['Desktop Chrome'],
                 channel: 'chrome',
                 video: 'retain-on-failure',
-                trace: 'on'
+                trace: 'on',
+                storageState: 'playwright/.auth/user.json'
+                
             },
-            grep: /@smoke/ // Only run tests with the @smoke tag
-            //dependencies: ['setup'] // Ensure setup runs first
+            grep: /@desktop.*@smoke|@smoke.*@desktop/, 
+            dependencies: ['setup'] // Ensure setup runs first
         },
         {
-            name: 'Google Chrome',
+            name: 'Regression testing',
             use: {
                 ...devices['Desktop Chrome'],
                 channel: 'chrome',
@@ -67,36 +70,39 @@ export default defineConfig({
                 ...devices['Desktop Firefox'],
                 video: 'retain-on-failure'
             },
-            grep: /@desktop/
-            //dependencies: ['setup']
+            grep: /@desktop.*@smoke|@smoke.*@desktop/, 
+            dependencies: ['setup']
         },
         {
             name: 'Microsoft Edge',
             use: {
                 ...devices['Desktop Edge'],
                 channel: 'msedge',
-                video: 'retain-on-failure'
+                video: 'retain-on-failure',
+                storageState: 'playwright/.auth/user.json'
             },
-            grep: /@desktop/
-            //dependencies: ['setup']
+            grep: /@desktop.*@smoke|@smoke.*@desktop/, 
+            dependencies: ['setup']
         },
         {
             name: 'Mobile Chrome',
             use: {
                 ...devices['Pixel 5'],
-                video: 'retain-on-failure'
+                video: 'retain-on-failure',
+                storageState: 'playwright/.auth/user.json'
             },
-            grep: /@mobile/
-            //dependencies: ['setup']
+            grep: /@mobile/,
+            dependencies: ['setup']
         },
         {
             name: 'Tablet',
             use: {
                 ...devices['Galaxy Tab S4'],
-                video: 'retain-on-failure'
+                video: 'retain-on-failure',
+                storageState: 'playwright/.auth/user.json'
             },
-            grep: /@tablet/
-            //dependencies: ['setup']
+            grep: /@tablet/,
+            dependencies: ['setup']
         }
     ]
 
