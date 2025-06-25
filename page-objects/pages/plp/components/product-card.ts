@@ -3,7 +3,7 @@ export default class ProductCard {
     readonly page: Page;
     // DOM ELEMENTS
     productDetailsLink: (productName: string) => Locator;
-    productTitles: Locator;
+    productTitle:(productName: string) => Locator;
     productImage: (productName: string) => Locator;
     addToCartButton: (productName: string) => Locator;
     addToWishlistButton: (productName: string) => Locator;
@@ -12,13 +12,13 @@ export default class ProductCard {
     constructor(page: Page) {
         this.page = page;
 
-        this.productDetailsLink = (productName: string): Locator => {
+        this.productDetailsLink = (productName)=> {
             return this.page.locator('.card-title.my-2', { hasText: productName }).locator('..').locator('..');
         };
 
-        this.productTitles = this.page.locator('.card-title.my-2');
+        this.productTitle = (productName) => this.page.locator('.card-title.my-2', {hasText: productName});
 
-        this.productImage = (productName: string): Locator => {
+        this.productImage = (productName) => {
             return this.page
                 .locator('.card-title.my-2', { hasText: productName })
                 .locator('..')
@@ -26,21 +26,21 @@ export default class ProductCard {
                 .locator('[mat-card-image]');
         };
 
-        this.addToCartButton = (productName: string): Locator => {
+        this.addToCartButton = (productName) => {
             return this.page
                 .locator('.card-title.my-2', { hasText: productName })
                 .locator('..')
                 .locator('app-addtocart');
         };
 
-        this.addToWishlistButton = (productName: string): Locator => {
+        this.addToWishlistButton = (productName) => {
             return this.page
                 .locator('.card-title.my-2', { hasText: productName })
                 .locator('..')
                 .locator('span', { hasText: 'favorite' });
         };
 
-        this.productPrice = (productName: string): Locator => {
+        this.productPrice = (productName)=> {
             return this.page.locator('.card-title.my-2', { hasText: productName }).locator('..').locator('p');
         };
     }
