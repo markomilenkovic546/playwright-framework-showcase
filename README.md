@@ -3,6 +3,14 @@
 ## Project Overview
 
 This repository demonstrates a test automation framework design and automation script writing using Playwright. 
+
+### Application Under Test
+
+The application used for testing in this project is **Bookcart**.
+
+- **Client Base URL**: [https://bookcart.azurewebsites.net/](https://bookcart.azurewebsites.net/)
+- **API Base URL**: [https://bookcart.azurewebsites.net/api](https://bookcart.azurewebsites.net/api)
+
 ## Project Structure
 
 
@@ -30,18 +38,26 @@ These component classes are then composed within the page classes to create a mo
 
 
 
-## Running Locally 
-Clone project locally by running `git clone` command
+## Running Locally
 
-Then install dependencies:
+### Clone project locally by running `git clone` command
+
+### Install dependencies:
 
 ```bash
 npm install
 # or
 yarn install
 ```
+### Create `.env` file in the root dir
+Add following variables in the .env:
+```bash
+BASE_URL=<client base url>
+API_BASE_URL=<api base url>
+```
 
-### Available Test Scripts:
+
+## Available Test Scripts:
 
 Run Smoke tests:
 
