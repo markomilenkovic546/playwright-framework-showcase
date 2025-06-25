@@ -1,5 +1,6 @@
 import { APIRequestContext } from '@playwright/test';
-import { GetProductsRes, GetSingleProductRes, LoginResBody } from 'types';
+import { GetProductsRes, GetSingleProductRes, LoginResBody, Product } from 'types';
+import { expect } from '../support/test.fixture';
 
 export default class APIHelper {
     constructor(private request: APIRequestContext) {}
@@ -12,106 +13,137 @@ export default class APIHelper {
         confirmPassword: string;
         gender: string;
     }): Promise<unknown> {
-        const response = await this.request.post(`${process.env.API_BASE_URL}/User`, {
-            data: payload
-        });
+        let body: unknown;
+        await expect(async () => {
+            const response = await this.request.post(`${process.env.API_BASE_URL}/User`, {
+                data: payload
+            });
 
-        const body = await response.json();
+            body = await response.json();
 
-        if (!response.ok()) {
-            throw new Error(`Request failed: ${body.error || 'Unknown error'}`);
-        }
-
+            if (response.status() !== 201) {
+                throw new Error(`Request failed: ${JSON.stringify(body)}`);
+            }
+        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
         return body;
     }
 
     async login(payload: { username: string; password: string }): Promise<LoginResBody> {
-        const response = await this.request.post(`${process.env.API_BASE_URL}/Login`, {
-            data: payload
-        });
+        let body: unknown;
+        await expect(async () => {
+            const response = await this.request.post(`${process.env.API_BASE_URL}/Login`, {
+                data: payload
+            });
 
-        const body = await response.json();
+            body = await response.json();
 
-        if (!response.ok()) {
-            throw new Error(`Request failed: ${body.error || 'Unknown error'}`);
-        }
+            if (response.status() !== 200) {
+                throw new Error(`Request failed: ${JSON.stringify(body)}`);
+            }
+        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
 
-        return body;
+        return body as LoginResBody;
     }
 
-    async getProducts(): Promise<GetProductsRes> {
-        const response = await this.request.get(`${process.env.API_BASE_URL}/Book`);
+    async getProducts(): Promise<Product[]> {
+        let body: unknown;
+        await expect(async () => {
+            const response = await this.request.get(`${process.env.API_BASE_URL}/Book`);
+            body = await response.json();
 
-        const body = await response.json();
+            if (response.status() !== 200) {
+                throw new Error(`Request failed: ${JSON.stringify(body)}`);
+            }
+        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
 
-        if (!response.ok()) {
-            throw new Error(`Request failed: ${body.error || 'Unknown error'}`);
-        }
-
-        return body;
+        return body as Product[];
     }
 
     async getSingleProduct(productId: string): Promise<GetSingleProductRes> {
-        const response = await this.request.get(`${process.env.API_BASE_URL}/Book/${productId}`);
+        let body: unknown;
+        await expect(async () => {
+            const response = await this.request.get(`${process.env.API_BASE_URL}/Book/${productId}`);
+            body = await response.json();
 
-        const body = await response.json();
-
-        if (!response.ok()) {
-            throw new Error(`Request failed: ${body.error || 'Unknown error'}`);
-        }
-
-        return body;
-    }
-
-    async getProductCategoriesList() {
-        const response = await this.request.get(`${process.env.API_BASE_URL}/GetCategoriesList`);
-
-        const body = await response.json();
-
-        if (!response.ok()) {
-            throw new Error(`Request failed: ${body.error || 'Unknown error'}`);
-        }
-
-        return body;
-    }
-
-    async getOrders(userId: string, authToken: string) {
-        const response = await this.request.get(`${process.env.API_BASE_URL}/Order/${userId}`, {
-            headers: {
-                Authorization: `Bearer ${authToken}`
+            if (response.status() !== 200) {
+                throw new Error(`Request failed: ${JSON.stringify(body)}`);
             }
-        });
+        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
 
-        const body = await response.json();
+        return body as GetSingleProductRes;
+    }
 
-        if (!response.ok()) {
-            throw new Error(`Request failed: ${body.error || 'Unknown error'}`);
-        }
+    async getProductCategoriesList(): Promise<unknown> {
+        let body: unknown;
+        await expect(async () => {
+            const response = await this.request.get(`${process.env.API_BASE_URL}/GetCategoriesList`);
+            body = await response.json();
+
+            if (response.status() !== 200) {
+                throw new Error(`Request failed: ${JSON.stringify(body)}`);
+            }
+        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
+
+        return body;
+    }
+
+    async getOrders(userId: string, authToken: string): Promise<unknown> {
+        let body: unknown;
+        await expect(async () => {
+            const response = await this.request.get(`${process.env.API_BASE_URL}/Order/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+
+            body = await response.json();
+
+            if (response.status() !== 200) {
+                throw new Error(`Failed to get orders: ${JSON.stringify(body)}`);
+            }
+        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
 
         return body;
     }
 
     async getShoppingCart(userId: string): Promise<unknown> {
-        const response = await this.request.get(`${process.env.API_BASE_URL}/ShoppingCart/${userId}`);
+        let body: unknown;
+        await expect(async () => {
+            const response = await this.request.get(`${process.env.API_BASE_URL}/ShoppingCart/${userId}`);
+            body = await response.json();
 
-        const body = await response.json();
-
-        if (!response.ok()) {
-            throw new Error(`Request failed: ${body.error || 'Unknown error'}`);
-        }
+            if (response.status() !== 200) {
+                throw new Error(`Failed to get Cart: ${JSON.stringify(body)}`);
+            }
+        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
 
         return body;
     }
 
-    async clearShoppingCart(userId: string): Promise<unknown>  {
-        const response = await this.request.delete(`${process.env.API_BASE_URL}/ShoppingCart/${userId}`);
+    async clearShoppingCart(userId: string): Promise<void> {
+        await expect(async () => {
+            const response = await this.request.delete(`${process.env.API_BASE_URL}/ShoppingCart/${userId}`, {
+                headers: { Accept: 'application/json' }
+            });
 
-        const body = await response.json();
+            if (response.status() !== 200) {
+                throw new Error(`Failed to clear cart, status: ${response.status()}`);
+            }
+        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
+    }
 
-        if (!response.ok()) {
-            throw new Error(`Request failed: ${body.error || 'Unknown error'}`);
-        }
+    async addToCart(userId: string, productId: string): Promise<void> {
+        await expect(async () => {
+            const response = await this.request.post(
+                `${process.env.API_BASE_URL}/shoppingCart/addToCart/${userId}/${productId}`,
+                {
+                    headers: { Accept: 'application/json' }
+                }
+            );
 
-        return body;
+            if (response.status() !== 200) {
+                throw new Error(`Failed to add to cart, status: ${response.status()}`);
+            }
+        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
     }
 }
