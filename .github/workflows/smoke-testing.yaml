@@ -37,10 +37,10 @@ jobs:
             - name: Run Smoke tests
               run: yarn test:smoke
 
-            - name: Upload Playwright Report
+            - name: Upload Test Report
               uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
               with:
-                  name: playwright-report
+                  name: smoke-testing-report
                   path: playwright-report/
                   retention-days: 30
