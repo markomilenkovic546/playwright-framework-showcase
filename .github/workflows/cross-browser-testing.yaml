@@ -25,7 +25,7 @@ jobs:
             - name: Install Playwright Browsers
               run: yarn playwright install --with-deps
 
-            - name: Create .env.dev file
+            - name: Create .env file
               run: |
                   mkdir -p env
                   echo "BASE_URL=${{ secrets.BASE_URL }}" > .env
