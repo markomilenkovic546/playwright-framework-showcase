@@ -20,6 +20,15 @@ export interface ShippingAddress {
     state?: string;
 }
 
+export interface Product {
+    bookId: number;
+    title: string;
+    author: string;
+    category: string;
+    price: number;
+    coverFileName: string;
+}
+
 // API response body types
 
 export interface LoginResBody {
