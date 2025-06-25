@@ -8,7 +8,7 @@ This repository demonstrates a test automation framework design and automation s
 
 The application used for testing in this project is **Bookcart**.
 
-- **Client Base URL**: [https://bookcart.azurewebsites.net/](https://bookcart.azurewebsites.net/)
+- **Client Base URL**: [https://bookcart.azurewebsites.net](https://bookcart.azurewebsites.net)
 - **API Base URL**: [https://bookcart.azurewebsites.net/api](https://bookcart.azurewebsites.net/api)
 
 ## Project Structure
