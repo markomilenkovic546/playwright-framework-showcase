@@ -15,7 +15,7 @@ export default class APIHelper {
     }): Promise<unknown> {
         let body: unknown;
         await expect(async () => {
-            const response = await this.request.post(`${process.env.API_BASE_URL}/User`, {
+            const response = await this.request.post(`${process.env.API_BASE_URL}/user`, {
                 data: payload
             });
 
@@ -31,7 +31,7 @@ export default class APIHelper {
     async login(payload: { username: string; password: string }): Promise<LoginResBody> {
         let body: unknown;
         await expect(async () => {
-            const response = await this.request.post(`${process.env.API_BASE_URL}/Login`, {
+            const response = await this.request.post(`${process.env.API_BASE_URL}/login`, {
                 data: payload
             });
 
@@ -48,7 +48,7 @@ export default class APIHelper {
     async getProducts(): Promise<Product[]> {
         let body: unknown;
         await expect(async () => {
-            const response = await this.request.get(`${process.env.API_BASE_URL}/Book`);
+            const response = await this.request.get(`${process.env.API_BASE_URL}/book`);
             body = await response.json();
 
             if (response.status() !== 200) {
@@ -62,7 +62,7 @@ export default class APIHelper {
     async getSingleProduct(productId: string): Promise<GetSingleProductRes> {
         let body: unknown;
         await expect(async () => {
-            const response = await this.request.get(`${process.env.API_BASE_URL}/Book/${productId}`);
+            const response = await this.request.get(`${process.env.API_BASE_URL}/book/${productId}`);
             body = await response.json();
 
             if (response.status() !== 200) {
@@ -76,7 +76,7 @@ export default class APIHelper {
     async getProductCategoriesList(): Promise<unknown> {
         let body: unknown;
         await expect(async () => {
-            const response = await this.request.get(`${process.env.API_BASE_URL}/GetCategoriesList`);
+            const response = await this.request.get(`${process.env.API_BASE_URL}/getCategoriesList`);
             body = await response.json();
 
             if (response.status() !== 200) {
@@ -90,7 +90,7 @@ export default class APIHelper {
     async getOrders(userId: string, authToken: string): Promise<unknown> {
         let body: unknown;
         await expect(async () => {
-            const response = await this.request.get(`${process.env.API_BASE_URL}/Order/${userId}`, {
+            const response = await this.request.get(`${process.env.API_BASE_URL}/order/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${authToken}`
                 }
@@ -109,7 +109,7 @@ export default class APIHelper {
     async getShoppingCart(userId: string): Promise<unknown> {
         let body: unknown;
         await expect(async () => {
-            const response = await this.request.get(`${process.env.API_BASE_URL}/ShoppingCart/${userId}`);
+            const response = await this.request.get(`${process.env.API_BASE_URL}/shoppingCart/${userId}`);
             body = await response.json();
 
             if (response.status() !== 200) {
@@ -122,7 +122,7 @@ export default class APIHelper {
 
     async clearShoppingCart(userId: string): Promise<void> {
         await expect(async () => {
-            const response = await this.request.delete(`${process.env.API_BASE_URL}/ShoppingCart/${userId}`, {
+            const response = await this.request.delete(`${process.env.API_BASE_URL}/shoppingCart/${userId}`, {
                 headers: { Accept: 'application/json' }
             });
 
