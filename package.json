@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test:regression": "npx playwright test --project=\"Regression testing\" --grep-invert=@smoke",
+        "test:e2e-regression": "npx playwright test --project=\"Regression testing\" --grep-invert=@smoke",
         "test:smoke": "npx playwright test --project=\"Smoke Testing\"",
         "test:cross-browser": "npx playwright test --project=\"Firefox\" --project=\"Microsoft Edge\"",
         "test:cross-device": "npx playwright test --project=\"Mobile Chrome\" --project=\"Tablet\""
