@@ -9,6 +9,10 @@ test.describe('@desktop User authentication', () => {
         await expect(page).toHaveURL(new RegExp(productListingPage.path), {
             timeout: 10000
         });
+        await page.evaluate(() => {
+            localStorage.clear();
+        });
+        await page.reload();
 
         await productListingPage.navbar.openLoginPage();
         await expect(page).toHaveURL(new RegExp(loginPage.path), {
