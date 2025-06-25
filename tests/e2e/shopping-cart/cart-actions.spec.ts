@@ -73,9 +73,9 @@ test.describe('Cart actions', () => {
                 await shoppingCartPage.cart.increaseItemQuantity(products[0].title);
 
                 // Verify that subtotal of the item is correctly updated
-                await expect.soft(shoppingCartPage.cart.itemTotalPrice(products[0].title)).toHaveText(
-                    `₹${products[0].price * 2}.00`
-                );
+                await expect
+                    .soft(shoppingCartPage.cart.itemTotalPrice(products[0].title))
+                    .toHaveText(`₹${products[0].price * 2}.00`);
 
                 // Verify that Cart total is correctly updated
                 const expectedTotal = `₹${(
@@ -143,9 +143,9 @@ test.describe('Cart actions', () => {
                 await shoppingCartPage.cart.decreaseItemQuantity(products[0].title);
 
                 // Verify that subtotal of the item is correctly updated
-                await expect(shoppingCartPage.cart.itemTotalPrice(products[0].title)).toHaveText(
-                    `₹${products[0].price}.00`
-                );
+                await expect
+                    .soft(shoppingCartPage.cart.itemTotalPrice(products[0].title))
+                    .toHaveText(`₹${products[0].price}.00`);
 
                 // Verify that Cart total is correctly updated
                 const expectedTotal = `₹${(products[0].price + products[1].price + products[2].price).toLocaleString(
@@ -156,7 +156,7 @@ test.describe('Cart actions', () => {
                     }
                 )}`;
 
-                await expect(shoppingCartPage.cart.cartTotal).toHaveText(expectedTotal);
+                await expect.soft(shoppingCartPage.cart.cartTotal).toHaveText(expectedTotal);
             }
         );
     });
@@ -210,9 +210,9 @@ test.describe('Cart actions', () => {
                 await shoppingCartPage.cart.removeItemFromCart(products[0].title);
 
                 // Verify that subtotal of the item is correctly updated
-                await expect(shoppingCartPage.cart.itemTotalPrice(products[0].title)).toHaveText(
-                    `₹${products[0].price}.00`
-                );
+                await expect
+                    .soft(shoppingCartPage.cart.itemTotalPrice(products[0].title))
+                    .toHaveText(`₹${products[0].price}.00`);
 
                 // Verify that Cart total is correctly updated
                 const expectedTotal = `₹${(products[1].price + products[2].price).toLocaleString('en-IN', {
@@ -220,7 +220,7 @@ test.describe('Cart actions', () => {
                     maximumFractionDigits: 2
                 })}`;
 
-                await expect(shoppingCartPage.cart.cartTotal).toHaveText(expectedTotal);
+                await expect.soft(shoppingCartPage.cart.cartTotal).toHaveText(expectedTotal);
             }
         );
 
