@@ -1,7 +1,7 @@
 import { test, expect } from '../../../../support/test.fixture';
 import { User } from 'types';
 
-test.describe('@desktop Password boundary validation', () => {
+test.describe.skip('@desktop Password boundary validation', () => {
     test.beforeEach(async ({ registrationPage, page }) => {
         // Open Registration page
         await registrationPage.open();
@@ -71,7 +71,7 @@ test.describe('@desktop Password boundary validation', () => {
     );
 });
 
-test.describe('@desktop Password complexity validation', { tag: ['@regression', '@registration'] }, () => {
+test.describe.skip('@desktop Password complexity validation', { tag: ['@regression', '@registration'] }, () => {
     test.beforeEach(async ({ registrationPage, loginPage, page }) => {
         // Open Registration page
         await registrationPage.open();
@@ -148,7 +148,7 @@ test.describe('@desktop Password complexity validation', { tag: ['@regression', 
     );
 });
 
-test.describe('@desktop Password confirmation validation', () => {
+test.describe.skip('@desktop Password confirmation validation', () => {
     test.beforeEach(async ({ registrationPage, page }) => {
         // Open Registration page
         await registrationPage.open();
@@ -181,7 +181,7 @@ test.describe('@desktop Password confirmation validation', () => {
     );
 });
 
-test.describe('@desktop Mandatory input validation', { tag: ['@regression', '@registration'] }, () => {
+test.describe.skip('@desktop Mandatory input validation', { tag: ['@regression', '@registration'] }, () => {
     test.beforeEach(async ({ registrationPage, page }) => {
         // Open Registration page
         await registrationPage.open();

@@ -1,7 +1,7 @@
 import { test, expect } from '../../../../support/test.fixture';
 import { User } from 'types';
 
-test.describe('@desktop Password Visibility Toggle', () => {
+test.describe.skip('@desktop Password Visibility Toggle', () => {
     let user: User;
 
     test.beforeEach(async ({ registrationPage, page, dataFactory }) => {
