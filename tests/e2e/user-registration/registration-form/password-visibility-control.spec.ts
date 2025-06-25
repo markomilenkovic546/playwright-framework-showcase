@@ -20,8 +20,6 @@ test.describe.skip('@desktop Password Visibility Toggle', () => {
         'Password value is hidden by default',
         { tag: ['@regression', '@registration'] },
         async ({ registrationPage }) => {
-            /** STEPS **/
-
             registrationPage.registrationForm.enterPassword(user.password!);
 
             await expect(registrationPage.registrationForm.passwordField).toHaveAttribute('type', 'password');
@@ -32,8 +30,6 @@ test.describe.skip('@desktop Password Visibility Toggle', () => {
         'Confirm Password value is hidden by default',
         { tag: ['@regression', '@registration'] },
         async ({ registrationPage }) => {
-            /** STEPS **/
-
             registrationPage.registrationForm.confirmPassword(user.password!);
 
             await expect(registrationPage.registrationForm.confirmPasswordField).toHaveAttribute('type', 'password');
@@ -44,8 +40,6 @@ test.describe.skip('@desktop Password Visibility Toggle', () => {
         'User can reveal password by clicking the visibility toggle',
         { tag: ['@regression', '@registration'] },
         async ({ registrationPage }) => {
-            /** STEPS **/
-
             registrationPage.registrationForm.enterPassword(user.password!);
 
             registrationPage.registrationForm.showPassword();
@@ -58,8 +52,6 @@ test.describe.skip('@desktop Password Visibility Toggle', () => {
         'User can reveal confirmation password by clicking the visibility toggle',
         { tag: ['@regression', '@registration'] },
         async ({ registrationPage }) => {
-            /** STEPS **/
-
             registrationPage.registrationForm.confirmPassword(user.password!);
 
             registrationPage.registrationForm.showConfirmationPassword();
@@ -72,8 +64,6 @@ test.describe.skip('@desktop Password Visibility Toggle', () => {
         'User can hide password by clicking the visibility toggle',
         { tag: ['@regression', '@registration'] },
         async ({ registrationPage }) => {
-            /** STEPS **/
-
             registrationPage.registrationForm.enterPassword(user.password!);
 
             registrationPage.registrationForm.showPassword();
@@ -88,8 +78,6 @@ test.describe.skip('@desktop Password Visibility Toggle', () => {
         'User can hide confirmation password by clicking the visibility toggle',
         { tag: ['@regression', '@registration'] },
         async ({ registrationPage }) => {
-            /** STEPS **/
-
             registrationPage.registrationForm.confirmPassword(user.password!);
 
             registrationPage.registrationForm.showConfirmationPassword();
