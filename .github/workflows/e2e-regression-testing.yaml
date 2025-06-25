@@ -1,4 +1,4 @@
-name: Regression Testing
+name: E2E Regression Testing
 
 on:
     workflow_dispatch:
@@ -31,13 +31,13 @@ jobs:
                   echo "BASE_URL=${{ secrets.BASE_URL }}" > .env
                   echo "API_BASE_URL=${{ secrets.API_BASE_URL }}" >> .env
 
-            - name: Run Regression tests
-              run: yarn test:regression
+            - name: Run E2E Regression tests
+              run: yarn test:e2e-regression
 
             - name: Upload Test Report
               uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
               with:
-                  name: regression-testing-report
+                  name: e2e-regression-testing-report
                   path: playwright-report/
                   retention-days: 30
