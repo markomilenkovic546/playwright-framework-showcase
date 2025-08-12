@@ -19,11 +19,10 @@ export default class APIHelper {
                 data: payload
             });
 
-            body = await response.json();
-
             if (response.status() !== 201) {
-                throw new Error(`Request failed: ${JSON.stringify(body)}`);
+                throw new Error(`Request failed: with status ${response.status()}`);
             }
+            body = await response.json();
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
         return body;
     }
@@ -35,11 +34,10 @@ export default class APIHelper {
                 data: payload
             });
 
-            body = await response.json();
-
             if (response.status() !== 200) {
-                throw new Error(`Request failed: ${JSON.stringify(body)}`);
+                throw new Error(`Request failed: with status ${response.status()}`);
             }
+            body = await response.json();
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
 
         return body as LoginResBody;
@@ -49,11 +47,13 @@ export default class APIHelper {
         let body: unknown;
         await expect(async () => {
             const response = await this.request.get(`${process.env.API_BASE_URL}/book`);
-            body = await response.json();
+            console.log(`${process.env.API_BASE_URL}/book`);
 
             if (response.status() !== 200) {
-                throw new Error(`Request failed: ${JSON.stringify(body)}`);
+                throw new Error(`Request failed: with status ${response.status()}`);
             }
+
+            body = await response.json();
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
 
         return body as Product[];
@@ -63,11 +63,11 @@ export default class APIHelper {
         let body: unknown;
         await expect(async () => {
             const response = await this.request.get(`${process.env.API_BASE_URL}/book/${productId}`);
-            body = await response.json();
 
             if (response.status() !== 200) {
-                throw new Error(`Request failed: ${JSON.stringify(body)}`);
+                throw new Error(`Request failed: with status ${response.status()}`);
             }
+            body = await response.json();
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
 
         return body as GetSingleProductRes;
@@ -77,11 +77,11 @@ export default class APIHelper {
         let body: unknown;
         await expect(async () => {
             const response = await this.request.get(`${process.env.API_BASE_URL}/getCategoriesList`);
-            body = await response.json();
 
             if (response.status() !== 200) {
-                throw new Error(`Request failed: ${JSON.stringify(body)}`);
+                throw new Error(`Request failed: with status ${response.status()}`);
             }
+            body = await response.json();
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
 
         return body;
@@ -96,11 +96,10 @@ export default class APIHelper {
                 }
             });
 
-            body = await response.json();
-
             if (response.status() !== 200) {
-                throw new Error(`Failed to get orders: ${JSON.stringify(body)}`);
+                throw new Error(`Request failed: with status ${response.status()}`);
             }
+            body = await response.json();
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
 
         return body;
@@ -110,11 +109,11 @@ export default class APIHelper {
         let body: unknown;
         await expect(async () => {
             const response = await this.request.get(`${process.env.API_BASE_URL}/shoppingCart/${userId}`);
-            body = await response.json();
 
             if (response.status() !== 200) {
-                throw new Error(`Failed to get Cart: ${JSON.stringify(body)}`);
+                throw new Error(`Request failed: with status ${response.status()}`);
             }
+            body = await response.json();
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
 
         return body;
@@ -127,7 +126,7 @@ export default class APIHelper {
             });
 
             if (response.status() !== 200) {
-                throw new Error(`Failed to clear cart, status: ${response.status()}`);
+                throw new Error(`Request failed: with status ${response.status()}`);
             }
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
     }
