@@ -24,7 +24,7 @@ test.describe('User authentication', () => {
     });
 
     test(
-        'User can login with valid input',
+        'User can log in with valid input',
         { tag: ['@smoke', '@login', '@desktop', '@mobile', '@tablet'] },
         async ({ productListingPage, loginPage, page }) => {
             // Prepare test data
@@ -46,7 +46,7 @@ test.describe('User authentication', () => {
     );
 
     test(
-        'User cannot login with invalid password',
+        'User cannot log in with invalid password',
         { tag: ['@regression', '@login', '@desktop'] },
         async ({ loginPage, page }) => {
             // Prepare test data
@@ -67,7 +67,7 @@ test.describe('User authentication', () => {
     );
 
     test(
-        'User cannot login if password field is empty',
+        'User cannot log in if password field is empty',
         { tag: ['@regression', '@login', '@desktop'] },
         async ({ loginPage, page }) => {
             // Prepare test data
