@@ -3,7 +3,7 @@ import { Product, User } from 'types';
 import testUser from '../../../static-test-data/user.json';
 
 test.describe('Cart actions', () => {
-    const user: User = testUser;
+    const user: Required<User> = testUser;
     let productsResBody: Product[];
     let products: Product[];
     let product: Product;
@@ -17,7 +17,7 @@ test.describe('Cart actions', () => {
         product = products[0];
 
         // Clear shopping cart via API
-        await apiHelper.clearShoppingCart(user.id!);
+        await apiHelper.clearShoppingCart(user.id);
 
         // Navigate to PLP
         await productListingPage.open();
@@ -33,7 +33,7 @@ test.describe('Cart actions', () => {
             async ({ productListingPage, shoppingCartPage, page, apiHelper }) => {
                 // Add 3 products in the cart
                 for (const product of products) {
-                    await apiHelper.addToCart(user.id!, `${product.bookId}`);
+                    await apiHelper.addToCart(user.id, `${product.bookId}`);
                     await page.waitForTimeout(500);
                 }
 
@@ -59,7 +59,7 @@ test.describe('Cart actions', () => {
             async ({ productListingPage, shoppingCartPage, page, apiHelper }) => {
                 // Add 3 products in the cart
                 for (const product of products) {
-                    await apiHelper.addToCart(user.id!, `${product.bookId}`);
+                    await apiHelper.addToCart(user.id, `${product.bookId}`);
                     await page.waitForTimeout(500);
                 }
 
@@ -97,7 +97,7 @@ test.describe('Cart actions', () => {
             async ({ productListingPage, shoppingCartPage, page, apiHelper }) => {
                 // Add 3 products in the cart
                 for (const product of products) {
-                    await apiHelper.addToCart(user.id!, `${product.bookId}`);
+                    await apiHelper.addToCart(user.id, `${product.bookId}`);
                     await page.waitForTimeout(500);
                 }
 
@@ -126,7 +126,7 @@ test.describe('Cart actions', () => {
             async ({ productListingPage, shoppingCartPage, page, apiHelper }) => {
                 // Add 3 products in the cart
                 for (const product of products) {
-                    await apiHelper.addToCart(user.id!, `${product.bookId}`);
+                    await apiHelper.addToCart(user.id, `${product.bookId}`);
                     await page.waitForTimeout(500);
                 }
 
@@ -168,7 +168,7 @@ test.describe('Cart actions', () => {
             async ({ productListingPage, shoppingCartPage, page, apiHelper }) => {
                 // Add 3 products in the cart
                 for (const product of products) {
-                    await apiHelper.addToCart(user.id!, `${product.bookId}`);
+                    await apiHelper.addToCart(user.id, `${product.bookId}`);
                     await page.waitForTimeout(500);
                 }
 
@@ -196,7 +196,7 @@ test.describe('Cart actions', () => {
             async ({ productListingPage, shoppingCartPage, page, apiHelper }) => {
                 // Add 3 products in the cart
                 for (const product of products) {
-                    await apiHelper.addToCart(user.id!, `${product.bookId}`);
+                    await apiHelper.addToCart(user.id, `${product.bookId}`);
                     await page.waitForTimeout(500);
                 }
 
@@ -230,7 +230,7 @@ test.describe('Cart actions', () => {
             async ({ productListingPage, shoppingCartPage, page, apiHelper }) => {
                 // Add 3 products in the cart
                 for (const product of products) {
-                    await apiHelper.addToCart(user.id!, `${product.bookId}`);
+                    await apiHelper.addToCart(user.id, `${product.bookId}`);
                     await page.waitForTimeout(500);
                 }
 
@@ -260,7 +260,7 @@ test.describe('Cart actions', () => {
             { tag: ['@regression', '@cart', '@desktop', '@mobile', '@tablet'] },
             async ({ productListingPage, shoppingCartPage, page, apiHelper }) => {
                 // Add product in the cart
-                await apiHelper.addToCart(user.id!, `${product.bookId}`);
+                await apiHelper.addToCart(user.id, `${product.bookId}`);
 
                 // Navigate to Cart page
                 await productListingPage.navbar.openCart();
@@ -348,7 +348,7 @@ test.describe('Cart actions', () => {
             'The Continue shopping button is not present when cart is not empty',
             { tag: ['@regression', '@cart', '@desktop'] },
             async ({ productListingPage, shoppingCartPage, page, apiHelper }) => {
-                await apiHelper.addToCart(user.id!, `${product.bookId}`);
+                await apiHelper.addToCart(user.id, `${product.bookId}`);
 
                 // Navigate to Cart page
                 await productListingPage.navbar.openCart();

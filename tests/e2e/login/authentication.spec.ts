@@ -28,20 +28,20 @@ test.describe('User authentication', () => {
         { tag: ['@smoke', '@login', '@desktop', '@mobile', '@tablet'] },
         async ({ productListingPage, loginPage, page }) => {
             // Prepare test data
-            const user: User = testUser;
+            const user: Required<User> = testUser;
 
             /** STEPS **/
-            await loginPage.loginForm.enterUsername(user.username!);
-            await expect(loginPage.loginForm.usernameField).toHaveValue(user.username!);
+            await loginPage.loginForm.enterUsername(user.username);
+            await expect(loginPage.loginForm.usernameField).toHaveValue(user.username);
 
             await loginPage.loginForm.enterPassword(user.password!);
-            await expect(loginPage.loginForm.passwordField).toHaveValue(user.password!);
+            await expect(loginPage.loginForm.passwordField).toHaveValue(user.password);
 
             await loginPage.loginForm.submitForm();
             await expect(page).toHaveURL(new RegExp(productListingPage.path), {
                 timeout: 10000
             });
-            await expect(loginPage.navbar.accountDropdownButton).toContainText(user.username!);
+            await expect(loginPage.navbar.accountDropdownButton).toContainText(user.username);
         }
     );
 
@@ -50,11 +50,11 @@ test.describe('User authentication', () => {
         { tag: ['@regression', '@login', '@desktop'] },
         async ({ loginPage, page }) => {
             // Prepare test data
-            const user: User = testUser;
+            const user: Required<User> = testUser;
 
             /** STEPS **/
-            await loginPage.loginForm.enterUsername(user.username!);
-            await expect(loginPage.loginForm.usernameField).toHaveValue(user.username!);
+            await loginPage.loginForm.enterUsername(user.username);
+            await expect(loginPage.loginForm.usernameField).toHaveValue(user.username);
 
             await loginPage.loginForm.enterPassword(user.password! + 'a');
             await expect(loginPage.loginForm.passwordField).toHaveValue(user.password! + 'a');
@@ -71,11 +71,11 @@ test.describe('User authentication', () => {
         { tag: ['@regression', '@login', '@desktop'] },
         async ({ loginPage, page }) => {
             // Prepare test data
-            const user: User = testUser;
+            const user: Required<User> = testUser;
 
             /** STEPS **/
-            await loginPage.loginForm.enterUsername(user.username!);
-            await expect(loginPage.loginForm.usernameField).toHaveValue(user.username!);
+            await loginPage.loginForm.enterUsername(user.username);
+            await expect(loginPage.loginForm.usernameField).toHaveValue(user.username);
 
             await loginPage.loginForm.submitForm();
             await expect(page).toHaveURL(new RegExp(loginPage.path), {

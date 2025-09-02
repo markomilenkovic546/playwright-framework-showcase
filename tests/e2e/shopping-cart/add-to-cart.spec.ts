@@ -3,7 +3,7 @@ import { Product, User } from 'types';
 import testUser from '../../../static-test-data/user.json';
 
 test.describe('Add to cart', () => {
-    const user: User = testUser;
+    const user: Required<User> = testUser;
     let productsResBody: Product[];
     let products: Product[];
     let product: Product;
@@ -17,7 +17,7 @@ test.describe('Add to cart', () => {
         product = products[0];
 
         // Clear shopping cart via API
-        await apiHelper.clearShoppingCart(user.id!);
+        await apiHelper.clearShoppingCart(user.id);
 
         // Navigate to PLP
         await productListingPage.open();
@@ -108,7 +108,7 @@ test.describe('Add to cart', () => {
 
     test(
         'Product quantity updates correctly when user adds a product that is already in the cart',
-        { tag: ['@regression', '@cart','@desktop'] },
+        { tag: ['@regression', '@cart', '@desktop'] },
         async ({ productListingPage, shoppingCartPage, page }) => {
             // Add same product in the cart twice
             await productListingPage.productCard.addProductToCart(product.title);
