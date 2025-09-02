@@ -12,15 +12,15 @@ export default class APIHelper {
         password: string;
         confirmPassword: string;
         gender: string;
-    }): Promise<unknown> {
-        let body: unknown;
+    }): Promise<any> {
+        let body: any;
         await expect(async () => {
             const response = await this.request.post(`${process.env.API_BASE_URL}/user`, {
                 data: payload
             });
 
             if (response.status() !== 201) {
-                throw new Error(`Request failed: with status ${response.status()}`);
+                throw new Error(`Failed to register user: ${response.status()} - ${await response.text()}`);
             }
             body = await response.json();
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
@@ -28,58 +28,14 @@ export default class APIHelper {
     }
 
     async login(payload: { username: string; password: string }): Promise<LoginResBody> {
-        let body: unknown;
+        let body!: LoginResBody;
         await expect(async () => {
             const response = await this.request.post(`${process.env.API_BASE_URL}/login`, {
                 data: payload
             });
 
             if (response.status() !== 200) {
-                throw new Error(`Request failed: with status ${response.status()}`);
-            }
-            body = await response.json();
-        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
-
-        return body as LoginResBody;
-    }
-
-    async getProducts(): Promise<Product[]> {
-        let body: unknown;
-        await expect(async () => {
-            const response = await this.request.get(`${process.env.API_BASE_URL}/book`);
-            console.log(`${process.env.API_BASE_URL}/book`);
-
-            if (response.status() !== 200) {
-                throw new Error(`Request failed: with status ${response.status()}`);
-            }
-
-            body = await response.json();
-        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
-
-        return body as Product[];
-    }
-
-    async getSingleProduct(productId: string): Promise<GetSingleProductRes> {
-        let body: unknown;
-        await expect(async () => {
-            const response = await this.request.get(`${process.env.API_BASE_URL}/book/${productId}`);
-
-            if (response.status() !== 200) {
-                throw new Error(`Request failed: with status ${response.status()}`);
-            }
-            body = await response.json();
-        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
-
-        return body as GetSingleProductRes;
-    }
-
-    async getProductCategoriesList(): Promise<unknown> {
-        let body: unknown;
-        await expect(async () => {
-            const response = await this.request.get(`${process.env.API_BASE_URL}/getCategoriesList`);
-
-            if (response.status() !== 200) {
-                throw new Error(`Request failed: with status ${response.status()}`);
+                throw new Error(`Failed to log in: ${response.status()} - ${await response.text()}`);
             }
             body = await response.json();
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
@@ -87,8 +43,54 @@ export default class APIHelper {
         return body;
     }
 
-    async getOrders(userId: string, authToken: string): Promise<unknown> {
-        let body: unknown;
+    async getProducts(): Promise<Product[]> {
+        let body!: Product[];
+        await expect(async () => {
+            const response = await this.request.get(`${process.env.API_BASE_URL}/book`);
+            console.log(`${process.env.API_BASE_URL}/book`);
+
+            if (response.status() !== 200) {
+                throw new Error(`Failed to get products: ${response.status()} - ${await response.text()}`);
+            }
+
+            body = await response.json();
+        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
+
+        return body;
+    }
+
+    async getSingleProduct(productId: string): Promise<GetSingleProductRes> {
+        let body!: GetSingleProductRes;
+        await expect(async () => {
+            const response = await this.request.get(`${process.env.API_BASE_URL}/book/${productId}`);
+
+            if (response.status() !== 200) {
+                throw new Error(`Failed to get single product: ${response.status()} - ${await response.text()}`);
+            }
+            body = await response.json();
+        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
+
+        return body;
+    }
+
+    async getProductCategoriesList(): Promise<any> {
+        let body: any;
+        await expect(async () => {
+            const response = await this.request.get(`${process.env.API_BASE_URL}/getCategoriesList`);
+
+            if (response.status() !== 200) {
+                throw new Error(
+                    `Failed to get product categories list: ${response.status()} - ${await response.text()}`
+                );
+            }
+            body = await response.json();
+        }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
+
+        return body;
+    }
+
+    async getOrders(userId: string, authToken: string): Promise<any> {
+        let body: any;
         await expect(async () => {
             const response = await this.request.get(`${process.env.API_BASE_URL}/order/${userId}`, {
                 headers: {
@@ -97,7 +99,7 @@ export default class APIHelper {
             });
 
             if (response.status() !== 200) {
-                throw new Error(`Request failed: with status ${response.status()}`);
+                throw new Error(`Failed to get orders: ${response.status()} - ${await response.text()}`);
             }
             body = await response.json();
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
@@ -105,13 +107,13 @@ export default class APIHelper {
         return body;
     }
 
-    async getShoppingCart(userId: string): Promise<unknown> {
-        let body: unknown;
+    async getShoppingCart(userId: string): Promise<any> {
+        let body: any;
         await expect(async () => {
             const response = await this.request.get(`${process.env.API_BASE_URL}/shoppingCart/${userId}`);
 
             if (response.status() !== 200) {
-                throw new Error(`Request failed: with status ${response.status()}`);
+                throw new Error(`Failed to get shopping cart: ${response.status()} - ${await response.text()}`);
             }
             body = await response.json();
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
@@ -126,7 +128,7 @@ export default class APIHelper {
             });
 
             if (response.status() !== 200) {
-                throw new Error(`Request failed: with status ${response.status()}`);
+                throw new Error(`Failed to clear shopping cart: ${response.status()} - ${await response.text()}`);
             }
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
     }
@@ -141,7 +143,7 @@ export default class APIHelper {
             );
 
             if (response.status() !== 200) {
-                throw new Error(`Failed to add to cart, status: ${response.status()}`);
+                throw new Error(`Failed to add product to cart: ${response.status()} - ${await response.text()}`);
             }
         }).toPass({ intervals: [5000, 3000, 3000], timeout: 15000 });
     }
