@@ -31,6 +31,9 @@ jobs:
                   echo "BASE_URL=${{ secrets.BASE_URL }}" > .env
                   echo "API_BASE_URL=${{ secrets.API_BASE_URL }}" >> .env
 
+            - name: Compile TypeScript
+              run: npx tsc --noEmit
+
             - name: Run Cross-browser tests
               run: yarn test:cross-browser
 
